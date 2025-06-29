@@ -13,8 +13,9 @@ A Flask-based web application that creates custom greeting cards by removing ima
 ## Setup Instructions
 
 1. **Import the Project**:
-    git clone https://github.com/hemanthanala1/cardmaker.git
-
+    ```bash
+     git clone https://github.com/hemanthanala1/cardmaker.git
+    ```
 3. **Install Dependencies**:
    ```bash
    pip install -r requirements.txt
