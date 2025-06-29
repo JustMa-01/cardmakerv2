@@ -1,1 +1,0 @@
-apt-get update && apt-get install -y build-essential libgl1 libglib2.0-0 python3-dev ffmpeg
