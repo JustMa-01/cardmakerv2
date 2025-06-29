@@ -159,7 +159,9 @@ document.addEventListener('DOMContentLoaded', () => {
         formData.append('wishes_font_size_multiplier', parseFloat(wishesFontSizeSlider.value) / 100);
         formData.append('name_font_size_multiplier', parseFloat(nameFontSizeSlider.value) / 100);
 
-        fetch('http://127.0.0.1:5000/process-image', {
+        // Use dynamic base URL for local and production
+        const baseUrl = window.location.origin;
+        fetch(`${baseUrl}/process-image`, {
             method: 'POST',
             body: formData,
         })
@@ -214,4 +216,4 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         showToast('Welcome to AI Card Creator Pro! 🎉');
     }, 1000);
-}); 
+});
