@@ -216,4 +216,39 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         showToast('Welcome to AI Card Creator Pro! 🎉');
     }, 1000);
+
+    // === Dev Crew Modal Logic ===
+    const devFooter = document.getElementById('devFooter');
+    const devModal = document.getElementById('devModal');
+    const devModalClose = document.getElementById('devModalClose');
+
+    // Footer show/hide on scroll to bottom
+    function handleFooterVisibility() {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const windowHeight = window.innerHeight;
+        const bodyHeight = document.body.offsetHeight;
+        // If user is at (or very near) the bottom
+        if (scrollY + windowHeight >= bodyHeight - 10) {
+            devFooter.classList.add('footer-visible');
+        } else {
+            devFooter.classList.remove('footer-visible');
+        }
+    }
+    window.addEventListener('scroll', handleFooterVisibility);
+    window.addEventListener('resize', handleFooterVisibility);
+    document.addEventListener('DOMContentLoaded', handleFooterVisibility);
+
+    if (devFooter && devModal && devModalClose) {
+        devFooter.addEventListener('click', () => {
+            devModal.style.display = 'flex';
+        });
+        devModalClose.addEventListener('click', () => {
+            devModal.style.display = 'none';
+        });
+        window.addEventListener('click', (event) => {
+            if (event.target === devModal) {
+                devModal.style.display = 'none';
+            }
+        });
+    }
 });

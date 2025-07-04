@@ -201,6 +201,51 @@
     <!-- Toast Notifications -->
     <div id="toastContainer" class="toast-container"></div>
 
+    <!-- Footer -->
+    <footer class="app-footer" id="devFooter">
+        <div class="footer-status">
+            <span class="status-operational">STATUS: OPERATIONAL</span>
+        </div>
+        <div class="footer-powered">
+            <span>Powered by <b>Netgain</b></span>
+        </div>
+        <div class="footer-devcrew">
+            <span>Dev Crew: <b>Maheswar & Hemanth</b></span>
+        </div>
+    </footer>
+
+    <!-- Dev Crew Modal -->
+    <div id="devModal" class="dev-modal">
+        <div class="dev-modal-content">
+            <span class="dev-modal-close" id="devModalClose">&times;</span>
+            <div class="dev-modal-header">
+                <span class="dev-modal-dot red"></span>
+                <span class="dev-modal-dot yellow"></span>
+                <span class="dev-modal-dot green"></span>
+            </div>
+            <div class="dev-modal-body">
+                <p class="dev-modal-welcome">Welcome to Netgain OS.</p>
+                <pre class="dev-modal-command">$ devcrew --list --contact</pre>
+                <div class="dev-modal-list">
+                    <div class="dev-modal-member">
+                        <span class="dev-modal-emoji">👨‍💻</span>
+                        <span class="dev-modal-name">Maheswar</span>
+                        <a class="dev-modal-linkedin" href="https://www.linkedin.com/in/maheswar-profile" target="_blank">
+                            <i class="fab fa-linkedin"></i> View LinkedIn Profile
+                        </a>
+                    </div>
+                    <div class="dev-modal-member">
+                        <span class="dev-modal-emoji">👨‍💻</span>
+                        <span class="dev-modal-name">HEMANTH</span>
+                        <a class="dev-modal-linkedin" href="https://www.linkedin.com/in/hemanth-profile" target="_blank">
+                            <i class="fab fa-linkedin"></i> View LinkedIn Profile
+                        </a>
+                    </div>
+                </div>
+                <pre class="dev-modal-prompt">$</pre>
+            </div>
+        </div>
+    </div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
