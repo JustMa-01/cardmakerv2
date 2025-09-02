@@ -50,5 +50,7 @@ def process_image_endpoint():
         return jsonify({"error": "An internal server error occurred."}), 500
 
 if __name__ == '__main__':
-    # For production, use environment variables or a config file to manage settings like DEBUG mode
-    app.run(debug=True, port=5000)  
+    # Use environment variables for production settings
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('DEBUG', 'False').lower() == 'true'
+    app.run(host='0.0.0.0', port=port, debug=debug)
