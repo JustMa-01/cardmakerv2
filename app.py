@@ -13,13 +13,13 @@ try:
 except ImportError:
     class RembgError(Exception): pass
 
-app = Flask(__name__)
+# Add production config
+app = Flask(__name__, static_folder='static')
 CORS(app)
 
-# --- Routes ---
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return app.send_static_file('index.html')
 
 
 # We are REPLACING the old '/process-image' with this new logic
@@ -50,7 +50,5 @@ def process_image_endpoint():
         return jsonify({"error": "An internal server error occurred."}), 500
 
 if __name__ == '__main__':
-    # Use environment variables for production settings
     port = int(os.environ.get('PORT', 5000))
-    debug = os.environ.get('DEBUG', 'False').lower() == 'true'
-    app.run(host='0.0.0.0', port=port, debug=debug)
+    app.run(host='0.0.0.0', port=port)
