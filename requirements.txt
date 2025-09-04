@@ -1,7 +1,5 @@
 Flask==2.3.3
-Flask-CORS==4.0.0
-rembg==2.0.62
-gunicorn
-Pillow
-numpy
-onnxruntime
+flask-cors==4.0.0
+rembg==2.0.51
+Pillow==10.3.0
+numpy==1.26.4

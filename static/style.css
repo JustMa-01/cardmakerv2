@@ -216,4 +216,4 @@ input:checked + .slider:before { transform: translateX(22px); }
 /* --- Toast Notifications --- */
 #toastContainer { position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 1000; }
 .toast { background-color: var(--bg-panel); padding: 1rem 1.5rem; border-radius: var(--radius); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-left: 4px solid var(--accent-color); animation: slideUpToast 0.3s ease; }
-@keyframes slideUpToast { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }git remote remove origin
+@keyframes slideUpToast { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }

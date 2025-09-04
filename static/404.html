@@ -4,8 +4,26 @@
     <meta charset="utf-8">
     <title>Redirecting...</title>
     <script>
-        sessionStorage.redirect = location.href;
+        window.onload = function() {
+            try {
+                sessionStorage.redirect = location.href;
+            } catch (e) {
+                console.error('Session storage error:', e);
+            }
+            try {
+                window.location.href = '/';
+            } catch (e) {
+                console.error('Redirection error:', e);
+                document.getElementById('fallback-message').style.display = 'block';
+            }
+        }
     </script>
-    <meta http-equiv="refresh" content="0;URL='/'">
+    <meta http-equiv="refresh" content="0;URL='/'" />
 </head>
+<body>
+    <p>Redirecting to homepage...</p>
+    <p id="fallback-message" style="display:none; color:red;">
+        If you are not redirected automatically, <a href="/">click here</a>.
+    </p>
+</body>
 </html>

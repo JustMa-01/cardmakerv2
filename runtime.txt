@@ -1,5 +1,1 @@
 python-3.11.9
-Flask==2.3.3
-flask-cors==4.0.0
-rembg==2.0.66
-Pillow==10.3.0

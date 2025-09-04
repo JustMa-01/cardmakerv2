@@ -170,13 +170,20 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!imagesLoaded) { e.preventDefault(); return showToast('Create an image first.'); }
             selectedLayer = null;
             drawCanvas(true);
-            const filename = document.querySelector('.control-filename')?.value || 'image';
+            const filenameInput = document.querySelector('.control-filename');
+            const filename = filenameInput ? filenameInput.value : 'image';
             e.currentTarget.href = dom.canvas.toDataURL('image/jpeg', 0.95);
             e.currentTarget.download = `${filename}.jpeg`;
             drawCanvas(); // Redraw with controls
         };
         
-        (C('.control-download-btn') || dom.downloadBtn).addEventListener('click', downloadHandler);
+        // Attach to sidebar/modal download button
+        C('.control-download-btn')?.addEventListener('click', downloadHandler);
+        
+        // Attach to header download button only when setting up the main page
+        if (container === document.body) {
+            dom.downloadBtn.addEventListener('click', downloadHandler);
+        }
         
         const fontSelect = C('.control-font-family');
         if (fontSelect) {

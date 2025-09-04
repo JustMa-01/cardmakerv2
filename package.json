@@ -1,0 +1,13 @@
+{
+  "name": "cardmaker-v2",
+  "version": "1.0.0",
+  "description": "Card Maker with Background Removal",
+  "main": "app.py",
+  "scripts": {
+    "start": "python app.py"
+  },
+  "engines": {
+    "node": "22.x",
+    "python": "3.9.16"
+  }
+}
