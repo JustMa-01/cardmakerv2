@@ -1,0 +1,16 @@
+# Ignore virtual environment
+.venv/
+venv/
+**/venv/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+.env
+.idea/
+.vscode/
+*.DS_Store
+/uploads/*
+!/uploads/.gitkeep
