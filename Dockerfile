@@ -24,4 +24,5 @@ EXPOSE $PORT
 # --workers 1: Use a single worker process (safe for free tier memory)
 # --bind 0.0.0.0:$PORT: Listen on all network interfaces on the port Render assigns
 # app:app: Look for the 'app' object inside the 'app.py' file
-CMD ["gunicorn", "--workers", "1", "--bind", "0.0.0.0:$PORT", "app:app"]
+# To this:
+CMD gunicorn --workers 1 --bind 0.0.0.0:$PORT app:app
