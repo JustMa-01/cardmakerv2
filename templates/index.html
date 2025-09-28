@@ -3,249 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Maker</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Anton&display=swap" rel="stylesheet">
+    <title>CARD MAKER v2.0 V2.0 </title>
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='fonts.css') }}">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <!-- Background Elements -->
-    <div class="background-elements">
-        <div class="floating-shape shape-1"></div>
-        <div class="floating-shape shape-2"></div>
-        <div class="floating-shape shape-3"></div>
-        <div class="floating-shape shape-4"></div>
+    <div class="background-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
     </div>
 
-    <div class="app-container">
-        <!-- Header Section -->
-        <header class="app-header">
-            <div class="header-content">
-                <div class="logo-section">
-                    <div class="logo-icon">
-                        <i class="fas fa-layer-group"></i>
-                    </div>
-                    <h1 class="app-title">Card Maker</h1>
-                </div>
-                <p class="app-subtitle">Create beautiful, personalized cards in seconds</p>
-            </div>
-        </header>
-
-        <!-- Main Content -->
+    <div class="app-layout">
         <main class="main-content">
-            <div class="content-grid">
-                <!-- Left Panel - Controls -->
-                <div class="controls-panel">
-                    <div class="panel-header">
-                        <h2><i class="fas fa-sliders-h"></i> Customization</h2>
-                        <p>Personalize your card with these options</p>
-                    </div>
-
-                    <div class="controls-container">
-                        <!-- Step 1: Image Upload -->
-                        <div class="control-section">
-                            <div class="section-header">
-                                <span class="step-number">01</span>
-                                <h3>Upload Photo</h3>
-                            </div>
-                            <div class="upload-area" id="uploadArea">
-                                <div class="upload-content">
-                                    <i class="fas fa-cloud-upload-alt"></i>
-                                    <p>Drag & drop your image here</p>
-                                    <span>or click to browse</span>
-                                </div>
-                                <input type="file" id="imageUpload" accept="image/*" hidden>
-                            </div>
-                            <div class="preview-container" id="previewContainer" style="display: none;">
-                                <div class="preview-header">
-                                    <h4>Original Preview</h4>
-                                    <button class="change-image-btn" id="changeImageBtn">
-                                        <i class="fas fa-edit"></i> Change
-                                    </button>
-                                </div>
-                                <div class="image-preview">
-                                    <img id="originalPreview" src="#" alt="Original Preview">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 2: Text Customization -->
-                        <div class="control-section">
-                            <div class="section-header">
-                                <span class="step-number">02</span>
-                                <h3>Text & Wishes</h3>
-            </div>
-
-                            <div class="input-group">
-                                <label for="wishesText">
-                                    <i class="fas fa-heart"></i> Wishes Message
-                                </label>
-                                <input type="text" id="wishesText" value="Happy Birthday" placeholder="Enter your wishes...">
-            </div>
-
-                            <div class="slider-group">
-                                <label for="wishesFontSizeSlider">
-                                    <span>Font Size</span>
-                                    <span class="value-display" id="wishesFontSizeValue">100%</span>
-                                </label>
-                                <div class="slider-container">
-                <input type="range" id="wishesFontSizeSlider" min="50" max="200" value="100" step="10">
-                                    <div class="slider-track"></div>
-                                </div>
-            </div>
-
-                            <div class="input-group">
-                                <label for="textLines">
-                                    <i class="fas fa-align-left"></i> Text Layout
-                                </label>
-                                <div class="select-wrapper">
-                <select id="textLines">
-                    <option value="single">Single Line</option>
-                    <option value="double" selected>Double Line</option>
-                </select>
-                                    <i class="fas fa-chevron-down"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 3: Name Customization -->
-                        <div class="control-section">
-                            <div class="section-header">
-                                <span class="step-number">03</span>
-                                <h3>Recipient Details</h3>
-            </div>
+            <!-- ✅ NEW: Simplified Header with Logo and Title -->
+            <header class="app-header">
+                <img src="{{ url_for('static', filename='cardmaker v2.png') }}" alt="CardMaker V2 Logo" class="header-logo">
+                <h1 class="header-title">CARD MAKER v2.0</h1>
+            </header>
             
-                            <div class="input-group">
-                                <label for="nameText">
-                                    <i class="fas fa-user"></i> Recipient Name
-                                </label>
-                                <input type="text" id="nameText" placeholder="Enter recipient's name">
+            <div class="main-header">
+                <button id="changeImageBtn" class="btn-secondary"><i class="fas fa-exchange-alt"></i> Change Image</button>
+                <a id="downloadBtn" class="btn-primary" href="#"><i class="fas fa-download"></i> Download</a>
             </div>
-
-                            <div class="slider-group">
-                                <label for="nameFontSizeSlider">
-                                    <span>Name Font Size</span>
-                                    <span class="value-display" id="nameFontSizeValue">100%</span>
-                                </label>
-                                <div class="slider-container">
-                <input type="range" id="nameFontSizeSlider" min="50" max="200" value="100" step="10">
-                                    <div class="slider-track"></div>
-                                </div>
-                            </div>
-            </div>
-
-                        <!-- Action Buttons -->
-                        <div class="action-section">
-                            <button id="generateButton" class="btn btn-primary">
-                                <i class="fas fa-magic"></i>
-                                <span>Generate Card</span>
-                            </button>
-                            <button id="regenerateButton" class="btn btn-secondary" style="display: none;">
-                                <i class="fas fa-redo"></i>
-                                <span>Regenerate Style</span>
-                            </button>
-                        </div>
-            </div>
-        </div>
-
-                <!-- Right Panel - Output -->
-                <div class="output-panel">
-                    <div class="panel-header">
-                        <h2><i class="fas fa-image"></i> Your Card</h2>
-                        <p>Preview and download your creation</p>
-                    </div>
-
-                    <div class="output-container">
-                        <div id="loadingIndicator" class="loading-state" style="display: none;">
-                            <div class="loading-animation">
-                <div class="spinner"></div>
-                                <div class="loading-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                            </div>
-                            <h3>Creating your card...</h3>
-                            <p>Our AI is working its magic</p>
-                        </div>
-
-                        <div id="outputContainer" class="output-content" style="display: none;">
-                            <div class="card-preview">
-                                <img id="outputImage" src="#" alt="Generated Card">
-                            </div>
-                            <div class="output-actions">
-                                <a id="downloadLink" href="#" download="custom_card.jpg" class="btn btn-download">
-                                    <i class="fas fa-download"></i>
-                                    <span>Download Card</span>
-                                </a>
-                                <button class="btn btn-share" id="shareButton">
-                                    <i class="fas fa-share-alt"></i>
-                                    <span>Share</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div id="emptyState" class="empty-state">
-                            <div class="empty-icon">
-                                <i class="fas fa-image"></i>
-                            </div>
-                            <h3>Ready to Create</h3>
-                            <p>Upload a photo and customize your card to get started</p>
-                        </div>
-                    </div>
+            <div class="canvas-wrapper" id="canvasWrapper">
+                <canvas id="previewCanvas"></canvas>
+                <div class="upload-placeholder" id="uploadPlaceholder">
+                    <div class="upload-content"><i class="fas fa-cloud-upload-alt"></i><h3>Upload an Image to Begin</h3><p>Drag & drop or click</p></div>
                 </div>
+                <div class="processing-overlay" id="processingOverlay">
+                    <div class="spinner"></div><span>Processing Image...</span>
+                </div>
+                <button class="regenerate-fab" id="regenerateFab"><i class="fas fa-magic"></i></button>
+                <input type="file" id="imageUpload" accept="image/*" hidden>
             </div>
+
+            <footer class="app-footer">
+                <p>
+                    Developed by 
+                    <a href="https://www.linkedin.com/in/developerone/" target="_blank" rel="noopener noreferrer">John Doe</a> & 
+                    <a href="https://www.linkedin.com/in/developertwo/" target="_blank" rel="noopener noreferrer">Jane Smith</a>
+                </p>
+            </footer>
         </main>
+
+        <aside class="sidebar" id="desktopSidebar"></aside>
+
+        <nav class="mobile-nav">
+            <button class="mobile-nav__btn" data-modal="text"><i class="fas fa-font"></i><span>Text</span></button>
+            <button class="mobile-nav__btn" data-modal="style"><i class="fas fa-palette"></i><span>Style</span></button>
+            <button class="mobile-nav__btn" data-modal="export"><i class="fas fa-save"></i><span>Save</span></button>
+        </nav>
     </div>
 
-    <!-- Toast Notifications -->
-    <div id="toastContainer" class="toast-container"></div>
-
-    <!-- Footer -->
-    <footer class="app-footer" id="devFooter">
-        <div class="footer-status">
-            <span class="status-operational">STATUS: OPERATIONAL</span>
-        </div>
-        <div class="footer-powered">
-            <span>Powered by <b>Netgain</b></span>
-        </div>
-        <div class="footer-devcrew">
-            <span>Dev Crew: <b>Maheswar & Hemanth</b></span>
-        </div>
-    </footer>
-
-    <!-- Dev Crew Modal -->
-    <div id="devModal" class="dev-modal">
-        <div class="dev-modal-content">
-            <span class="dev-modal-close" id="devModalClose">&times;</span>
-            <div class="dev-modal-header">
-                <span class="dev-modal-dot red"></span>
-                <span class="dev-modal-dot yellow"></span>
-                <span class="dev-modal-dot green"></span>
-            </div>
-            <div class="dev-modal-body">
-                <p class="dev-modal-welcome">Welcome to Netgain OS.</p>
-                <pre class="dev-modal-command">$ devcrew --list --contact</pre>
-                <div class="dev-modal-list">
-                    <div class="dev-modal-member">
-                        <span class="dev-modal-emoji">👨‍💻</span>
-                        <span class="dev-modal-name">Maheswar</span>
-                        <a class="dev-modal-linkedin" href="https://www.linkedin.com/in/maheswar117?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">
-                            <i class="fab fa-linkedin"></i> View LinkedIn Profile
-                        </a>
-                    </div>
-                    <div class="dev-modal-member">
-                        <span class="dev-modal-emoji">👨‍💻</span>
-                        <span class="dev-modal-name">HEMANTH</span>
-                        <a class="dev-modal-linkedin" href="https://www.linkedin.com/in/hemanth-anala-1739b7267?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank">
-                            <i class="fab fa-linkedin"></i> View LinkedIn Profile
-                        </a>
-                    </div>
-                </div>
-                <pre class="dev-modal-prompt">$</pre>
-            </div>
+    <!-- ... (The rest of the HTML remains the same) ... -->
+    <div class="modal-backdrop" id="modalBackdrop">
+        <div class="modal" id="controlsModal">
+            <div class="modal-header"><h3 id="modalTitle">Controls</h3><button class="modal-close-btn" id="modalCloseBtn"><i class="fas fa-times"></i></button></div>
+            <div class="modal-content" id="modalContent"></div>
         </div>
     </div>
+    <div id="control-templates" style="display: none;">
+        <div data-template="text"><div class="control-group"><label class="group-title">Main Text (Behind)</label><input type="text" class="control-behind-text" value="STYLE"></div><div class="control-group"><label class="group-title">Accent Text (Front)</label><input type="text" class="control-front-text" value="Your"></div></div>
+        <div data-template="style"><div class="control-group desktop-only"><button class="btn-secondary full-width control-regenerate-btn"><i class="fas fa-random"></i> Regenerate Style</button></div><div class="control-group"><label class="group-title">Font Family</label><div class="custom-select control-font-family"><div class="select-selected"><span>Anton</span> <i class="fas fa-chevron-down"></i></div><ul class="select-items select-hide"></ul></div></div><div class="control-group"><label class="group-title">Main Text Layout</label><div class="toggle-switch-wrapper"><span>Single</span><label class="toggle-switch"><input type="checkbox" class="control-line-mode"><span class="slider"></span></label><span>Multi</span></div></div><div class="control-group"><label class="group-title">Main Text Size</label><input type="range" class="control-behind-size" min="50" max="600" value="200"></div><div class="control-group"><label class="group-title">Accent Text Size</label><input type="range" class="control-front-size" min="20" max="300" value="80"></div></div>
+        <div data-template="export"><div class="control-group"><label class="group-title">Filename</label><input type="text" class="control-filename" value="lipicard"></div><a class="btn-primary control-download-btn" href="#"><i class="fas fa-download"></i> Download Image</a></div>
+    </div>
+    <div id="toastContainer"></div>
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
