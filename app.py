@@ -1,28 +1,35 @@
 from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
-from rembg import remove
+from rembg import remove, new_session
 from PIL import Image
 import io
-import base64 # Import base64 library
-import os
-import random # For randomization
+import base64
 
-# For rembg-specific error handling
-try:
-    from rembg.bg import RembgError
-except ImportError:
-    class RembgError(Exception): pass
-
+# ---- Flask Setup ----
 app = Flask(__name__)
 CORS(app)
 
-# --- Routes ---
+# ---- Load lightweight rembg model ONCE (major RAM savings) ----
+session = new_session("u2netp")   # LIGHT model (lowest RAM usage)
+
+# ---- Resize incoming images (massive RAM savings for large uploads) ----
+def resize_image_if_needed(image_bytes, max_size=1024):
+    img = Image.open(io.BytesIO(image_bytes))
+
+    # If image is already small, skip
+    if max(img.size) <= max_size:
+        return image_bytes
+
+    img.thumbnail((max_size, max_size))
+    output = io.BytesIO()
+    img.save(output, format="PNG")
+    return output.getvalue()
+
+# ---- Routes ----
 @app.route('/')
 def home():
     return render_template('index.html')
 
-
-# We are REPLACING the old '/process-image' with this new logic
 @app.route('/process-image', methods=['POST'])
 def process_image_endpoint():
     if 'image' not in request.files:
@@ -31,24 +38,32 @@ def process_image_endpoint():
     file = request.files['image']
 
     try:
-        input_image_bytes = file.read()
-        # --- 1. Perform background removal ---
-        bg_removed_bytes = remove(input_image_bytes)
-        # --- 2. Prepare images for sending ---
-        original_base64 = base64.b64encode(input_image_bytes).decode('utf-8')
-        subject_base64 = base64.b64encode(bg_removed_bytes).decode('utf-8')
-        # --- 3. Send both images back as JSON ---
+        original_bytes = file.read()
+
+        # --- 1. Resize large images before removing background ---
+        optimized_bytes = resize_image_if_needed(original_bytes)
+
+        # --- 2. Remove background using lightweight global model ---
+        result_bytes = remove(optimized_bytes, session=session)
+
+        # --- 3. Convert to Base64 for frontend preview ---
+        original_b64 = base64.b64encode(original_bytes).decode('utf-8')
+        result_b64 = base64.b64encode(result_bytes).decode('utf-8')
+
+        # Clean up memory
+        del original_bytes
+        del optimized_bytes
+        del result_bytes
+
         return jsonify({
-            "original_image": f"data:image/{file.mimetype.split('/')[1]};base64,{original_base64}",
-            "subject_image": f"data:image/png;base64,{subject_base64}"
+            "original_image": f"data:image/png;base64,{original_b64}",
+            "subject_image": f"data:image/png;base64,{result_b64}"
         })
-    except RembgError as e:
-        app.logger.error(f"Background removal failed: {e}")
-        return jsonify({"error": "Failed to process image background. The image might be corrupted or in an unsupported format."}), 400
+
     except Exception as e:
-        app.logger.error(f"An unexpected error occurred: {e}")
-        return jsonify({"error": "An internal server error occurred."}), 500
+        app.logger.error(f"Error: {e}")
+        return jsonify({"error": "Image processing failed."}), 500
+
 
 if __name__ == '__main__':
-    # For production, use environment variables or a config file to manage settings like DEBUG mode
-    app.run(debug=True, port=5000)  
+    app.run(debug=True, port=5000)
